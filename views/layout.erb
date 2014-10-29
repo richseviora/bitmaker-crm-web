@@ -6,13 +6,20 @@
   <link rel="stylesheet" href="/bootstrap.css"/>
 </head>
 <body>
-<%= yield %>
-<nav>
-  <ul>
-    <li><a href="/">Main Menu</a></li>
-    <li><a href="/contacts">Contacts</a></li>
-    <li><a href="/contacts/new">Create Contact</a></li>
-  </ul>
-</nav>
+<div class="container"><div class="row">
+  <section class="col-md-4">
+    <h1>CRMWeb<small>For BitMaker Labs</small></h1>
+    <nav>
+      <div class="nav nav-pills nav-stacked">
+        <a class="list-group-item" href="/">Main Menu</a>
+        <a class="list-group-item" href="/contacts">Contacts</a>
+        <a class="list-group-item" href="/contacts/new">Create Contact</a>
+      </div>
+    </nav>
+  </section>
+  <div class="col-md-8"><%= yield %></div>
+
+</div></div>
+
 </body>
 </html>
