@@ -1,5 +1,5 @@
 class Contact
-  attr_accessor :first_name, :last_name, :id, :email, :notes
+  attr_accessor :first_name, :last_name, :id, :email, :notes, :pkid
 
   def initialize(first_name, last_name, id, email, notes)
     @first_name = first_name
@@ -7,6 +7,7 @@ class Contact
     @id = id
     @email = email
     @notes = notes
+    @pkid = 0
   end
 
   def describe

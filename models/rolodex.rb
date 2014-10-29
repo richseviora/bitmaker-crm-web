@@ -3,9 +3,12 @@ class Rolodex
 
   def initialize
     @contacts = []
+    @current_pkid = 1
   end
 
   def add_contact(contact_to_add)
+    contact_to_add.pkid = @current_pkid
+    @current_pkid       += 1
     @contacts << contact_to_add
   end
 

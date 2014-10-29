@@ -3,7 +3,6 @@ require_relative 'models/contact'
 require_relative 'models/rolodex'
 
 
-
 class CRMWeb < Sinatra::Base
   configure do
     $rolodex = Rolodex.new
@@ -14,8 +13,6 @@ class CRMWeb < Sinatra::Base
     $rolodex.add_contact(contact3)
     $rolodex.add_contact(contact2)
   end
-
-
 
 
   get '/' do
@@ -33,15 +30,9 @@ class CRMWeb < Sinatra::Base
 
   post '/contacts/new' do
     puts "PARAMS #{params}"
-    contact = Contact.new(params[:first_name],params[:last_name],params[:id],params[:email_address],params[:notes])
+    contact = Contact.new(params[:first_name], params[:last_name], params[:id], params[:email_address], params[:notes])
     $rolodex.add_contact(contact)
-  end
-
-  get '/:name' do
-    # All name parameters are submitted as items in the params hash.
-    @name = params[:name]
-    # Calling ERB with the symbol name will pass instance variables (@variableName) to the template.
-    erb :people
+    redirect to('/contacts')
   end
 
 
