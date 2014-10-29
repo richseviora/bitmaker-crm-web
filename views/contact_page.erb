@@ -1,0 +1,58 @@
+<main>
+  <h3>Contact Display</h3>
+  <a class="btn btn-primary" href="/contacts">Return to Contacts</a>
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Current Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+            First Name
+          </td>
+          <td>
+            <%= contact.first_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Last Name
+          </td>
+          <td>
+            <%= contact.last_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            E-Mail Address
+          </td>
+          <td>
+            <%= contact.email %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Notes
+          </td>
+          <td>
+            <%= contact.notes %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            ID
+          </td>
+          <td>
+            <%= contact.id %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <a class="btn btn-warning" href="/contacts/<%= contact.pkid %>/edit">Edit</a>
+    <a class="btn btn-danger" href="/contacts/<%= contact.pkid %>/delete">Delete</a>
+
+</main>

@@ -1,0 +1,59 @@
+<main>
+  <h3>Contact Display</h3>
+  <a class="btn btn-primary" href="/contacts">Return to Contacts</a>
+
+  <form action="/contacts/<%= contact.pkid %>/update" method="post">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Current Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          First Name
+        </td>
+        <td>
+          <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" value="<%= contact.first_name %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Last Name
+        </td>
+        <td>
+          <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<%= contact.last_name %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          E-Mail Address
+        </td>
+        <td>
+          <input type="email" class="form-control" name="email"  id="email" placeholder="example@example.com" value="<%= contact.email %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Notes
+        </td>
+        <td>
+          <input type="text" class="form-control" name="notes" id="notes" placeholder="Contact Notes" value="<%= contact.notes %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ID
+        </td>
+        <td>
+          <input type="text" class="form-control" name="id" id="id" placeholder="ID" value="<%= contact.id %>" />
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-warning">Submit Changes</button>
+  </form>
+
+</main>

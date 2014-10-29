@@ -12,7 +12,7 @@
     <tbody>
     <% $rolodex.contacts.each do |contact| %>
         <tr>
-          <td><%= contact.pkid %></td>
+          <td><a href="/contacts/<%= contact.pkid %>"><%= contact.pkid %></a></td>
           <td><%= contact.first_name %></td>
           <td><%= contact.last_name %></td>
         </tr>

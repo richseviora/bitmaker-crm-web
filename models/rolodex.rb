@@ -12,6 +12,12 @@ class Rolodex
     @contacts << contact_to_add
   end
 
+  def search_by_id(id)
+    pkid = id.to_i
+    results = @contacts.select { |contact| contact.pkid == pkid}
+    results.first
+  end
+
   def search_for_contact(search_text)
     raise "Invalid Argument" unless search_text.is_a?(String)
     results = @contacts.select { |contact_to_match| contact_to_match.match?(search_text) }
