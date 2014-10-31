@@ -1,6 +1,6 @@
 <main><h3>Contacts</h3>
 
-  <p><a href="/contacts/new">Create New Contact</a></p>
+  <p><a class="btn btn-primary" href="/contacts/new">Create New Contact</a></p>
   <table class="table table-striped">
     <thead>
     <tr>
@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-    <% $rolodex.contacts.each do |contact| %>
+    <% @contacts.each do |contact| %>
         <tr>
           <td><a href="/contacts/<%= contact.pkid %>"><%= contact.pkid %></a></td>
           <td><%= contact.first_name %></td>

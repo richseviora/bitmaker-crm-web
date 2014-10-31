@@ -1,17 +1,26 @@
 require 'sinatra/base'
-require_relative 'models/contact'
-require_relative 'models/rolodex'
+require 'data_mapper'
 
+DataMapper.setup(:default, "sqlite3:database.sqlite3")
+
+class Contact
+  include DataMapper::Resource
+  property :pkid, Serial
+  property :first_name, String
+  property :last_name, String
+  property :email, String
+  property :notes, String
+  property :id, String
+
+end
+
+DataMapper.finalize
+DataMapper.auto_upgrade!
 
 class CRMWeb < Sinatra::Base
   configure do
-    $rolodex = Rolodex.new
-    contact1 = Contact.new('Rich', 'Seviora', '623292', 'richard.seviora@gmail.com', 'Beard!')
-    contact2 = Contact.new('The', 'Dude', '000000', 'the@dude.com', 'Dude')
-    contact3 = Contact.new('Another Dude', 'Bob', '111111', 'meow@meow.com', 'Meow!')
-    $rolodex.add_contact(contact1)
-    $rolodex.add_contact(contact3)
-    $rolodex.add_contact(contact2)
+
+
   end
 
 
@@ -21,8 +30,8 @@ class CRMWeb < Sinatra::Base
   end
 
   get '/contacts' do
-    raise 'No Rolodex!' if $rolodex.nil?
     @title = "All Contacts"
+    @contacts = Contact.all
     erb :contact_list
 
   end
@@ -35,13 +44,17 @@ class CRMWeb < Sinatra::Base
 
   post '/contacts/new' do
     puts "PARAMS #{params}"
-    contact = Contact.new(params[:first_name], params[:last_name], params[:id], params[:email_address], params[:notes])
-    $rolodex.add_contact(contact)
+    contact = Contact.create(
+        first_name: params[:first_name],
+        last_name: params[:last_name],
+        id: params[:ID],
+        email: params[:email_address],
+        notes: params[:notes])
     redirect to('/contacts')
   end
 
-  get '/contacts/:id' do
-    contact = $rolodex.search_by_id(params[:id])
+  get '/contacts/:pkid' do
+    contact = Contact.get(params[:pkid].to_i)
     if contact
       @title = "#{contact.first_name} #{contact.last_name}"
       erb :contact_page, locals: {contact: contact}
@@ -51,7 +64,7 @@ class CRMWeb < Sinatra::Base
   end
 
   get '/contacts/:pkid/edit' do
-    contact = $rolodex.search_by_id(params[:pkid])
+    contact = Contact.get(params[:pkid].to_i)
     if contact
       @title = "Edit #{contact.first_name} #{contact.last_name}"
       erb :edit_page, locals: {contact: contact}
@@ -61,21 +74,17 @@ class CRMWeb < Sinatra::Base
   end
 
   post '/contacts/:pkid/update' do
-    contact = $rolodex.search_by_id(params[:pkid])
+    contact = Contact.get(params[:pkid].to_i)
     if contact
-      contact.first_name = params[:first_name]
-      contact.last_name = params[:last_name]
-      contact.email = params[:email]
-      contact.notes = params[:notes]
-      contact.id = params[:id]
+      contact.update(first_name: params[:first_name], last_name: params[:last_name], email: params[:email], notes: params[:notes], id: params[:id])
     end
     redirect to('/contacts')
   end
 
   get '/contacts/:pkid/delete' do
-    contact = $rolodex.search_by_id(params[:pkid])
+    contact = Contact.get(params[:pkid].to_i)
     if contact
-      $rolodex.delete_contact(contact)
+      contact.destroy
       redirect to('/contacts')
     else
       redirect to('/contacts')
